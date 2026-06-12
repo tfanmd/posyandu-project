@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 
+
 class KaderController extends Controller
 {
     /**
@@ -66,7 +67,7 @@ class KaderController extends Controller
 
         return redirect()->route('admin.kader.index')->with('success', 'Akun Kader berhasil ditambahkan!');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -81,7 +82,8 @@ class KaderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kader = User::with('kaderProfile')->findOrFail($id);
+        return view('admin.kader.edit', compact('kader'));
     }
 
     /**
@@ -89,7 +91,38 @@ class KaderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $kader = User::findOrFail($id);
+
+        // Validasi input. Pengecualian unique email untuk ID yang sedang di-edit
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $kader->id,
+            'jabatan' => 'required|string',
+            'no_hp' => 'required|string|max:20',
+            'alamat' => 'required|string',
+        ]);
+
+        \DB::transaction(function () use ($request, $kader) {
+            // Update data akun utama
+            $kader->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+
+            // Jika form password diisi, berarti admin ingin mereset password kader
+            if ($request->filled('password')) {
+                $kader->update(['password' => \Hash::make($request->password)]);
+            }
+
+            // Update data profil kader
+            $kader->kaderProfile()->update([
+                'jabatan' => $request->jabatan,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+            ]);
+        });
+
+        return redirect()->route('admin.kader.index')->with('success', 'Data Kader berhasil diperbarui!');
     }
 
     /**
@@ -97,6 +130,11 @@ class KaderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $kader = User::findOrFail($id);
+
+        // Hapus akun (data di kader_profiles otomatis terhapus karena on delete cascade di database)
+        $kader->delete();
+
+        return redirect()->route('admin.kader.index')->with('success', 'Akun Kader berhasil dihapus!');
     }
 }

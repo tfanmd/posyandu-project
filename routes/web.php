@@ -4,7 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
-use App\Http\Controllers\KaderController;
+use App\Http\Controllers\Admin\KaderController;
 
 // Publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
