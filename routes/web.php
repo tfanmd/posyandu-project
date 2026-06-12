@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\Admin\KaderController;
+use App\Http\Controllers\Admin\PostController;
 
 // Publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('kader', KaderController::class);
+    Route::resource('post', PostController::class);
 });
 
 //KADER 

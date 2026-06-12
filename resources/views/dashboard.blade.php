@@ -58,7 +58,8 @@
                             <h4 class="text-lg font-bold text-gray-800">Publikasi & Artikel</h4>
                             <p class="text-sm text-gray-600 mb-4">Persetujuan (approval) berita posyandu dan artikel
                                 edukasi gizi.</p>
-                            <a href="#" class="text-blue-600 text-sm font-semibold hover:text-blue-800">Kelola
+                            <a href="{{ route('admin.post.index') }}"
+                                class="text-blue-600 text-sm font-semibold hover:text-blue-800">Kelola
                                 Konten &rarr;</a>
                         </div>
                     </div>
