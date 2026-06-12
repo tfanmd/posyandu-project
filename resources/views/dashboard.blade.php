@@ -98,7 +98,7 @@
                             <h4 class="text-lg font-bold text-gray-800">Data Sasaran Warga</h4>
                             <p class="text-sm text-gray-600 mb-4">Pencatatan riwayat pemeriksaan Balita dan Ibu Hamil.
                             </p>
-                            <a href="#"
+                            <a href="{{ route('kader.warga.index') }} "
                                 class="text-emerald-600 text-sm font-semibold hover:text-emerald-800">Kelola Data
                                 &rarr;</a>
                         </div>
