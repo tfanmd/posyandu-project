@@ -18,6 +18,7 @@ class Kegiatan extends Model
         'waktu_selesai',
         'lokasi',
         'deskripsi',
+        'status',
         'created_by'
     ];
 
