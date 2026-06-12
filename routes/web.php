@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\Admin\KaderController;
 use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Kader\JadwalController;
 
 // Publik
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -30,6 +31,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 //KADER 
-Route::middleware(['auth', 'role:kader'])->prefix('kader')->name('kader.')->group(function () {});
+Route::middleware(['auth', 'role:kader'])->prefix('kader')->name('kader.')->group(function () {
+    Route::resource('jadwal', JadwalController::class);
+});
+
 
 require __DIR__ . '/auth.php';

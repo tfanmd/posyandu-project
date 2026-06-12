@@ -78,7 +78,8 @@
                             <h4 class="text-lg font-bold text-gray-800">Jadwal Kegiatan</h4>
                             <p class="text-sm text-gray-600 mb-4">Inisiasi agenda penimbangan, imunisasi, dan kelas ibu
                                 hamil.</p>
-                            <a href="#" class="text-green-600 text-sm font-semibold hover:text-green-800">Input
+                            <a href="{{ route('kader.jadwal.index') }}"
+                                class="text-green-600 text-sm font-semibold hover:text-green-800">Input
                                 Jadwal &rarr;</a>
                         </div>
                     </div>
